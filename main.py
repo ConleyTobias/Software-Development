@@ -9,14 +9,17 @@ import requests
 import json
 from geopy.geocoders import Nominatim
 
-def locationUI():
+def locationUI(InvalidAddress):
   #UI setup
   LocationScreen = tkinter.Tk()
   LocationScreen.title('Building a sustainable future')
   LocationScreen.geometry('400x200')
   
   #Address label
-  LocationLabel = Label(LocationScreen, text='Enter address:').grid(row=0)
+  if InvalidAddress:
+    LocationLabel = Label(LocationScreen, text='Enter valid address:', fg="red").grid(row=0)
+  else:
+    LocationLabel = Label(LocationScreen, text='Enter address:').grid(row=0)
   
   #Address entry
   location = StringVar()
@@ -39,24 +42,31 @@ owp_key = os.getenv('OWP_KEY')  #get openweathermap api key
 #current time
 unixTime = datetime.now().timestamp() 
 
-#location being surveyed
-location = locationUI()
-address = ""
-address = location.get()
-location.set("")
-print(address)
+#define global variables needed for getCoords()
 loc = ""
 lat = 0
 lon = 0
 
 #Use geopy to get latitude and longitude of address
-def getCoords():
+def getCoords(InvalidAddress):
+  #location being surveyed
+  location = locationUI(InvalidAddress)
+  address = ""
+  address = location.get()
+  location.set("")
+  print(address)
+  
   loc = Nominatim(user_agent="Geopy Library")
   getLoc = loc.geocode(address)
-  print(getLoc.address)
-
-  lat = getLoc.latitude
-  lon = getLoc.longitude
+  
+  if getLoc == None:
+    print("Invalid Address")
+    getCoords(True) #repeat until valid address is entered
+  else:
+    print(getLoc.address)
+    #set global variables
+    lat = getLoc.latitude
+    lon = getLoc.longitude
 
 #Gets pollutants (micrograms per cubic meter) from openweathermap api
 def getCurrentData():
@@ -66,7 +76,7 @@ def getCurrentData():
   levels = owp_response.json()["list"][0]["components"]
   return levels
 
-getCoords()
+getCoords(False)
 pollutant_levels = getCurrentData()
 print(pollutant_levels)
 
