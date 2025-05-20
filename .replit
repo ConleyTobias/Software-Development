@@ -1,0 +1,12 @@
+entrypoint = "main.py"
+modules = ["python-3.10:v18-20230807-322e88b"]
+
+[nix]
+channel = "stable-23_05"
+packages = ["SDL2", "SDL2_image", "SDL2_mixer", "SDL2_ttf", "libcxx", "libxcrypt", "mtdev", "pkg-config"]
+
+[unitTest]
+language = "python3"
+
+[deployment]
+run = ["python3", "main.py"]
