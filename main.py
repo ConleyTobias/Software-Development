@@ -13,7 +13,7 @@ def locationUI(InvalidAddress):
   #UI setup
   LocationScreen = tkinter.Tk()
   LocationScreen.title('Building a sustainable future')
-  LocationScreen.geometry('400x200')
+  LocationScreen.geometry('230x100')
   
   #Address label
   if InvalidAddress:
@@ -82,66 +82,72 @@ print(pollutant_levels)
 
 #Get pollutant levels in PPM
 CarbonMonoxide = pollutant_levels["co"] / 1000
-NitrogenMonoxide = pollutant_levels["no"] / 1000
+#NitrogenMonoxide = pollutant_levels["no"] / 1000
 NitrogenDioxide = pollutant_levels["no2"] / 1000
 Ozone = pollutant_levels["o3"] / 1000
 SulphurDioxide = pollutant_levels["so2"] / 1000
 FineParticulateMatter = pollutant_levels["pm2_5"] / 1000
 CoarseParticulateMatter = pollutant_levels["pm10"] / 1000
-Ammonia = pollutant_levels["nh3"] / 1000
+#Ammonia = pollutant_levels["nh3"] / 1000
 
 #Generate results
 Result = ""
-RecomendedActions = ""
 
-if CarbonMonoxide > 1000:
+if CarbonMonoxide > 15.5:
   Result = Result + "Very High Carbon Monoxide levels\n"
-elif CarbonMonoxide > 500:
+elif CarbonMonoxide > 12.5:
   Result = Result + "High Carbon Monoxide levels\n"
-elif CarbonMonoxide > 100:
+elif CarbonMonoxide > 4.5:
   Result = Result + "Moderatly High Carbon Monoxide levels\n"
   
+'''
+Don't have data for Nitrogen Monoxide
+
 if NitrogenMonoxide > 15:
   Result = Result + "Very High Nitrogen Monoxide levels\n"
 elif NitrogenMonoxide > 13:
   Result = Result + "High Nitrogen Monoxide levels\n"
 elif NitrogenMonoxide > 10:
   Result = Result + "Moderatly High Nitrogen Monoxide levels\n"
+'''
 
-if NitrogenDioxide > 1.0:
+if NitrogenDioxide > 650:
   Result = Result + "Very High Nitrogen Dioxide levels\n"
-elif NitrogenDioxide > 0.4:
+elif NitrogenDioxide > 361:
   Result = Result + "High Nitrogen Dioxide levels\n"
-elif NitrogenDioxide > 0.1:
+elif NitrogenDioxide > 54:
   Result = Result + "Moderatly High Nitrogen Dioxide levels\n"
 
-if Ozone > 0.1:
+if Ozone > 0.106:
   Result = Result + "Very High Ozone levels\n"
-elif Ozone > 0.08:
+elif Ozone > 0.086:
   Result = Result + "High Ozone levels\n"
-elif Ozone > 0.06:
+elif Ozone > 0.055:
   Result = Result + "Moderatly High Ozone levels\n"
 
-if SulphurDioxide > 0.5:
+if SulphurDioxide > 305:
   Result = Result + "Very High Sulphur Dioxide levels\n"
-elif SulphurDioxide > 0.2:
+elif SulphurDioxide > 186:
   Result = Result + "High Sulphur Dioxide levels\n"
-elif SulphurDioxide > 0.1:
+elif SulphurDioxide > 36:
   Result = Result + "Moderatly High Sulphur Dioxide levels\n"
 
-if FineParticulateMatter > 25:
+if FineParticulateMatter > 125.5:
   Result = Result + "Very High Fine Particulate Matter levels\n"
-elif FineParticulateMatter > 15:
+elif FineParticulateMatter > 55.5:
   Result = Result + "High Fine Particulate Matter levels\n"
-elif FineParticulateMatter > 10:
+elif FineParticulateMatter > 9.1:
   Result = Result + "Moderatly High Fine Particulate Matter levels\n"
 
-if CoarseParticulateMatter > 50:
+if CoarseParticulateMatter > 355:
   Result = Result + "Very High Coarse Particulate Matter levels\n"
-elif CoarseParticulateMatter > 35:
+elif CoarseParticulateMatter > 255:
   Result = Result + "High Coarse Particulate Matter levels\n"
-elif CoarseParticulateMatter > 25:
+elif CoarseParticulateMatter > 55:
   Result = Result + "Moderatly High Coarse Particulate Matter levels\n"
+
+'''
+Don't have data for Ammonia
 
 if Ammonia > 0.05:
   Result = Result + "Very High Ammonia levels\n"
@@ -149,17 +155,32 @@ elif Ammonia > 0.03:
   Result = Result + "High Ammonia levels\n"
 elif Ammonia > 0.01:
   Result = Result + "Moderatly High Ammonia levels\n"
+'''
 
 if Result == "":
   Result = "Air Quality is Good"
 
 #Data
-Data = "Carbon Monoxide: " + str(CarbonMonoxide) + " PPM\n" + "Nitrogen Monoxide: " + str(NitrogenMonoxide) + " PPM\n" + "Nitrogen Dioxide: "  + str(NitrogenDioxide) + " PPM\n" + "Ozone: " + str(Ozone) + " PPM\n" + "Sulphur Dioxide: " + str(SulphurDioxide) + " PPM\n" + "Fine Particulate Matter: " + str(FineParticulateMatter) + " PPM\n" + "Coarse Particulate Matter: " + str(CoarseParticulateMatter) + " PPM\n" + "Ammonia: " + str(Ammonia) + " PPM\n"
+Data = "Carbon Monoxide: " + str(CarbonMonoxide) + " PPM\n" + "Nitrogen Dioxide: "  + str(NitrogenDioxide) + " PPM\n" + "Ozone: " + str(Ozone) + " PPM\n" + "Sulphur Dioxide: " + str(SulphurDioxide) + " PPM\n" + "Fine Particulate Matter: " + str(FineParticulateMatter) + " PPM\n" + "Coarse Particulate Matter: " + str(CoarseParticulateMatter)
+
+#More Info
+RecomendedActions = "-Reduce use of fertilizer\n-Ventilate your home\n-Use air purifiers & filters\n-Use air conditioners\n-Use air purifying plants\n-Vaccum regularly\nFor more information visit:\nhttps://health.clevelandclinic.org/\n17-simple-ways-prevent-air-pollution-home"
+
+def moreInfo():
+  MoreInfoScreen = tkinter.Tk()
+  MoreInfoScreen.title('Building a sustainable future')
+  MoreInfoScreen.geometry('270x210')
+
+  MoreInfoScreenLabel = Label(MoreInfoScreen, text="More Info", font=("Arial", 16, "bold")).grid(row=0)
+  MoreInfoTextLabel = Label(MoreInfoScreen, text=RecomendedActions).grid(row=1)
+  QuitButton = tkinter.Button(MoreInfoScreen, text='Quit', width=25, command=MoreInfoScreen.destroy).grid(row=3)
+  
+  MoreInfoScreen.mainloop()
 
 #UI
 ResultScreen = tkinter.Tk()
 ResultScreen.title('Building a sustainable future')
-ResultScreen.geometry('800x800')
+ResultScreen.geometry('330x300')
 
 #Result Text
 ResultLabel = Label(ResultScreen, text="Result\n" + Result + "\n", font=("Arial", 16, "bold"))
@@ -169,8 +190,12 @@ ResultLabel.grid(row=0)
 DataLabel = Label(ResultScreen, text="Data\n" + Data)
 DataLabel.grid(row=1)
 
+#More Info Button
+MoreInfoButton = tkinter.Button(ResultScreen, text='More Info', width=25, command=moreInfo)
+MoreInfoButton.grid(row=2)
+
 #Quit button
 QuitButton = tkinter.Button(ResultScreen, text='Quit', width=25, command=ResultScreen.destroy)
-QuitButton.grid(row=2)
+QuitButton.grid(row=3)
 
 ResultScreen.mainloop()
